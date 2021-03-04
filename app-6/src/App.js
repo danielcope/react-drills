@@ -1,30 +1,38 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
+import List from './components/List'
 import "./App.css";
-import NewTask from "./components/NewTask";
-import List from "./components/List";
 
 class App extends Component {
+  
   constructor() {
-    super();
+    super()
 
     this.state = {
+      userInput:'',
       list: []
-    };
-
-    this.handleAddTask = this.handleAddTask.bind(this);
+    }
   }
 
-  handleAddTask(task) {
-    this.setState({ list: [...this.state.list, task] });
+
+  handleChange(val) {
+    this.setState ({ userInput:val })
+  
+    }
+
+  submitToDo () {
+    let list = []
+    list.push(this.state.userInput)
+    this.setState({ list:list })
+    console.log(this.state.list)
   }
 
   render() {
     return (
       <div className="App">
-        <h1>My to-do list:</h1>
-        <NewTask add={this.handleAddTask} />
-        <List tasks={this.state.list} />
+        <h1>My To-do List:</h1>
+        <input onChange={ (e) => this.handleChange(e.target.value)}/>
+        <button onClick={() => this.submitToDo()} >Submit</button>   
+        <List/>
       </div>
     );
   }
